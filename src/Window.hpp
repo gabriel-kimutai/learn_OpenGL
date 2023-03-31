@@ -11,6 +11,6 @@ class Window {
     void handleInput();
     void updateWindow();
 
-   private:
     GLFWwindow* window;
+   private:
 };

@@ -1,11 +1,14 @@
 #include "Window.hpp"
+
 #include <GLFW/glfw3.h>
+
 #include <cstdlib>
-#include <ostream>
 #include <iostream>
+#include <ostream>
 #include <stdexcept>
 
-int Window::initWindow(const uint32_t screenWidth, const uint32_t screenHeight, const char *title)
+int Window::initWindow(const uint32_t screenWidth, const uint32_t screenHeight,
+                       const char *title)
 {
     if (!glfwInit()) {
         throw std::runtime_error("failed to initialize glfw");
@@ -15,21 +18,14 @@ int Window::initWindow(const uint32_t screenWidth, const uint32_t screenHeight, 
     window = glfwCreateWindow(screenWidth, screenHeight, title, NULL, NULL);
 
     if (!window) {
-       throw std::runtime_error("failed to create window");
+        throw std::runtime_error("failed to create window");
         glfwTerminate();
         exit(EXIT_FAILURE);
     }
+    glfwMakeContextCurrent(window);
     return EXIT_SUCCESS;
 }
 
-void Window::updateWindow()
-{
-    glfwMakeContextCurrent(window);
-    while (!glfwWindowShouldClose(window)) {
-        glfwSwapBuffers(window);
-        handleInput();
-    }
-}
 
 void Window::handleInput()
 {
